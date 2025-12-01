@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Produk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo">Sistem Penjualan</div>
+    <div class="user-info">
+        <span></span>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+    </div>
+</header>
+
+<nav class="sidebar">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="produk.html" class="active">Produk</a>
+    <a href="transaksi.html">Transaksi</a>
+    <a href="laporan.html">Laporan</a>
+</nav>
+
+<main class="content">
+    <h1>Tambah Produk</h1>
+
+    <section class="add-product-section">
+        <form>
+            <label>Nama Produk</label>
+            <input type="text" id="nama" required>
+
+            <label>Kategori</label>
+            <input type="text" id="kategori" required>
+
+            <label>Harga Beli</label>
+            <input type="number" id="harga-beli">
+
+            <label>Harga Jual</label>
+            <input type="number" id="harga-jual">
+
+            <label>Stok</label>
+            <input type="number" id="stok">
+
+            <label>Satuan</label>
+            <input type="text" id="satuan">
+
+            <div class="form-buttons">
+                <button type="submit" class="save-button">Simpan</button>
+                <button type="button" class="cancel-button">Batal</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
