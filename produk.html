@@ -8,15 +8,6 @@
 </head>
 <body>
 
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="logo">Sistem Penjualan</div>
-    <div class="user-info">
-      <span></span> <!-- JS akan mengisi -->
-      <a href="#" id="logoutBtn" class="logout">Logout</a>
-    </div>
-  </header>
-
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <nav>
@@ -25,17 +16,22 @@
         <li><a href="produk.html" class="active">Produk</a></li>
         <li><a href="pos.html">Transaksi</a></li>
         <li><a href="laporan.html">Laporan</a></li>
+        <li><a href="#" id="logoutBtn">Logout</a></li>
       </ul>
     </nav>
   </aside>
 
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="user-info">
+      <span>Selamat datang, <span id="usernameDisplay">Pengguna</span></span>
+    </div>
+  </header>
+
   <!-- CONTENT -->
   <main class="content">
     <h1>Daftar Produk</h1>
-
-    <!-- Tombol ADD (harus class add-product-button agar JS mengikat) -->
     <button class="add-product-button">+ Tambah Produk</button>
-
     <div class="table-card">
       <table class="products-table">
         <thead>

@@ -6,27 +6,31 @@
     <title>Tambah Produk</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header class="topbar">
-    <div class="logo">Sistem Penjualan</div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="produk.html" class="active">Produk</a></li>
+        <li><a href="pos.html">Transaksi</a></li>
+        <li><a href="laporan.html">Laporan</a></li>
+        <li><a href="#" id="logoutBtn">Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
     <div class="user-info">
-        <span></span>
-        <button id="logoutBtn" class="logout-btn">Logout</button>
+      <span>Selamat datang, <span id="usernameDisplay">Pengguna</span></span>
     </div>
-</header>
+  </header>
 
-<nav class="sidebar">
-    <a href="dashboard.html">Dashboard</a>
-    <a href="produk.html" class="active">Produk</a>
-    <a href="transaksi.html">Transaksi</a>
-    <a href="laporan.html">Laporan</a>
-</nav>
-
-<main class="content">
+  <!-- CONTENT -->
+  <main class="content">
     <h1>Tambah Produk</h1>
-
     <section class="add-product-section">
         <form>
             <label>Nama Produk</label>
@@ -53,8 +57,8 @@
             </div>
         </form>
     </section>
-</main>
+  </main>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

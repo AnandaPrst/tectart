@@ -1,22 +1,30 @@
-/* Import Font */
+/* ===== Import Font ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-/* Reset and Base Styles */
+/* ===== Reset & Base ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ===== FIX HALAMAN LOGIN ===== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F5F7FA;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
+/* ===== Login Page ===== */
 .page-login {
     background-color: #F5F7FA !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     min-height: 100vh !important;
-    margin: 0 !important;
 }
 
 .page-login aside.sidebar,
@@ -47,18 +55,7 @@
     text-align: center;
 }
 
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #F5F7FA;
-    color: #333;
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Layout Container */
+/* ===== Layout Container ===== */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -67,7 +64,7 @@ body {
     display: flex;
 }
 
-/* Sidebar */
+/* ===== Sidebar ===== */
 aside.sidebar {
     width: 250px;
     background-color: #2D87F0;
@@ -95,11 +92,12 @@ aside.sidebar nav ul li a {
     transition: background-color 0.3s;
 }
 
-aside.sidebar nav ul li a:hover {
+aside.sidebar nav ul li a:hover,
+aside.sidebar nav ul li a.active {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Header */
+/* ===== Header ===== */
 header.topbar {
     background-color: #2D87F0;
     color: white;
@@ -115,14 +113,14 @@ header.topbar .user-info {
     justify-content: flex-end;
 }
 
-/* Main Content */
+/* ===== Main Content ===== */
 main.content {
     flex: 1;
     margin-left: 250px;
     padding: 20px;
 }
 
-/* Footer */
+/* ===== Footer ===== */
 footer {
     background-color: #333;
     color: #777;
@@ -132,7 +130,7 @@ footer {
     margin-left: 250px;
 }
 
-/* Cards */
+/* ===== Cards & Sections ===== */
 .card,
 .login-card,
 .stats-cards .card,
@@ -149,7 +147,7 @@ footer {
     margin-bottom: 20px;
 }
 
-/* Forms */
+/* ===== Forms ===== */
 form .input-group {
     margin-bottom: 15px;
 }
@@ -174,7 +172,7 @@ form input:focus {
     outline: none;
 }
 
-/* Global Buttons */
+/* ===== Buttons ===== */
 button,
 .add-product-button,
 .save-button,
@@ -182,15 +180,27 @@ button,
 .add-button,
 .finish-button,
 .search-button,
-.login-button {
-    background-color: #2D87F0;
-    color: white;
+.login-button,
+.btn-edit,
+.btn-del {
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
     transition: 0.3s;
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+
+button,
+.add-product-button,
+.save-button,
+.add-button,
+.finish-button,
+.search-button,
+.login-button,
+.btn-edit {
+    background-color: #2D87F0;
+    color: white;
 }
 
 button:hover,
@@ -199,7 +209,8 @@ button:hover,
 .add-button:hover,
 .finish-button:hover,
 .search-button:hover,
-.login-button:hover {
+.login-button:hover,
+.btn-edit:hover {
     background-color: #1e5f99;
 }
 
@@ -212,7 +223,16 @@ button:hover,
     background-color: #aaa;
 }
 
-/* Table */
+.btn-del {
+    background-color: #ff4b4b;
+    color: white;
+}
+
+.btn-del:hover {
+    background-color: #c73333;
+}
+
+/* ===== Table ===== */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -239,84 +259,60 @@ table tbody tr:hover {
     background-color: #e0e7ff;
 }
 
-/* Edit & Delete Buttons */
-.action-btn {
-    padding: 6px 12px;
-    border-radius: 5px;
-    font-size: 0.9em;
-    cursor: pointer;
-    border: none;
-}
-
-.edit-btn {
-    background-color: #1e90ff;
-    color: white;
-}
-
-.edit-btn:hover {
-    background-color: #176bb3;
-}
-
-.delete-btn {
-    background-color: #ff4b4b;
-    color: white;
-}
-
-.delete-btn:hover {
-    background-color: #c73333;
-}
-
-/* Popup / Modal Overlay */
-.modal {
+/* ===== Modal ===== */
+.modal-bg {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    justify-content: center;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
     align-items: center;
+    justify-content: center;
     z-index: 2000;
 }
 
-/* Modal Box */
-.modal-content {
-    background: white;
-    width: 420px;
-    padding: 25px;
+.modal.card {
+    background: #fff;
     border-radius: 10px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-    animation: fadeIn 0.3s ease;
+    padding: 20px;
+    width: 420px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
 }
 
-/* Close Button */
-.close-modal {
-    float: right;
-    font-size: 22px;
+.modal.card label {
+    display: block;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.modal.card input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.modal.card > div {
+    margin-top: 14px;
+    text-align: right;
+}
+
+.modal.card button {
+    background: #2D87F0;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    margin-left: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    color: #555;
 }
 
-.close-modal:hover {
-    color: #000;
+.modal.card button#-cancel {
+    background: #ccc;
+    color: #333;
 }
 
-/* Animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Login */
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-/* Stats Cards */
+/* ===== Stats Cards ===== */
 .stats-cards {
     display: flex;
     gap: 20px;
@@ -328,7 +324,7 @@ table tbody tr:hover {
     min-width: 200px;
 }
 
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
     aside.sidebar {
         width: 100%;
@@ -351,77 +347,3 @@ table tbody tr:hover {
         display: block;
     }
 }
-
-/* ===== Modal yang dibuat oleh script.js (modal-bg, modal, card) ===== */
-.modal-bg {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-}
-
-.modal.card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 420px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-}
-
-/* Style inputs inside modal (keep consistent with your form styles) */
-.modal.card label {
-  display: block;
-  font-weight: 600;
-  margin-top: 10px;
-}
-.modal.card input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* Modal buttons area */
-.modal.card > div {
-  margin-top: 14px;
-  text-align: right;
-}
-.modal.card button {
-  background: #2D87F0;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  margin-left: 8px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.modal.card button#-cancel {
-  background: #ccc;
-  color: #333;
-}
-
-/* Button classes used in JS render */
-.btn-edit, .btn-del {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-}
-.btn-edit { background: #1e90ff; color: #fff; }
-.btn-del { background: #ff4b4b; color: #fff; }
-
-/* Ensure add-product-button looks like other buttons */
-.add-product-button {
-  background: #2D87F0;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 14px;
-}
-
