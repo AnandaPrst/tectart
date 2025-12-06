@@ -19,6 +19,43 @@ const escapeHtml = str => (!str && str !== 0 ? "" : String(str).replace(/[&<>"'`
 const escapeHtmlAttr = str => escapeHtml(str).replace(/"/g, '&quot;');
 
 // ---------------------------
+// DASHBOARD (Sesuai ID HTML Kamu)
+// ---------------------------
+function initDashboard() {
+    // Ambil elemen HTML
+    const elProducts = document.querySelector("#totalProducts");
+    const elTrxToday = document.querySelector("#totalTransactions");
+    const elIncomeToday = document.querySelector("#todayIncome");
+    const elLowStock = document.querySelector("#lowStock");
+
+    // Jika bukan halaman dashboard → hentikan
+    if (!elProducts && !elTrxToday && !elIncomeToday && !elLowStock) return;
+
+    // Load data dari localStorage
+    const produkList = JSON.parse(localStorage.getItem(LS_PRODUCTS_KEY)) || [];
+    const transaksiList = JSON.parse(localStorage.getItem(LS_TRANSACTIONS_KEY)) || [];
+
+    // 1. Total Produk
+    elProducts.textContent = produkList.length;
+
+    // 2. Total Transaksi Hari Ini
+    const today = new Date().toISOString().split("T")[0];
+    const transaksiHariIni = transaksiList.filter(
+        trx => (trx.tanggal || "").split("T")[0] === today
+    );
+    elTrxToday.textContent = transaksiHariIni.length;
+
+    // 3. Total Pendapatan Hari Ini
+    const pendapatanHariIni = transaksiHariIni.reduce((sum, trx) => sum + trx.total, 0);
+    elIncomeToday.textContent = "Rp " + pendapatanHariIni.toLocaleString("id-ID");
+
+    // 4. Produk Hampir Habis (stok di bawah 5)
+    const lowStockCount = produkList.filter(p => p.stok <= 5).length;
+    elLowStock.textContent = lowStockCount;
+}
+
+
+// ---------------------------
 // 1. Page protection
 // ---------------------------
 (function protectPages() {
@@ -39,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initAddProductPage();
   initPOS();
   initReports();
+  initDashboard(); 
 });
 
 // ---------------------------
@@ -288,71 +326,124 @@ function initPOS() {
   renderCart(); updateTotal();
 }
 
-// ---------------------------
-// 8. REPORTS
-// ---------------------------
+// ============================
+// 8. REPORTS — FIXED VERSION
+// ============================
+
 function initReports() {
-  const form = qs("#formCariLaporan");
-  const tbody = qs("#reportBody");
-  const reportDateEl = qs("#reportDate");
-  if (!tbody && !form && !reportDateEl) return;
+    const form = qs("#reportForm");
+    const tbody = qs("#reportTableBody");
+    const dateInput = qs("#reportDate");
 
-  if (reportDateEl) {
-    const today = new Date().toLocaleDateString("id-ID", { year:"numeric", month:"long", day:"numeric" });
-    reportDateEl.textContent = today;
-  }
+    // Jika ini bukan halaman laporan → berhenti
+    if (!form || !tbody || !dateInput) return;
 
-  const render = transactions => {
-    if (!tbody) return;
-    tbody.innerHTML="";
-    transactions.forEach(trx=>{
-      const date = new Date(trx.tanggal).toISOString().split("T")[0];
-      tbody.insertAdjacentHTML("beforeend", `
-        <tr>
-          <td>${escapeHtml(trx.id)}</td>
-          <td>${escapeHtml(date)}</td>
-          <td>${escapeHtml(trx.kasir)}</td>
-          <td>${formatCurrency(trx.total)}</td>
-          <td><button class="btn-detail" data-id="${escapeHtml(trx.id)}">Detail</button></td>
-        </tr>
-      `);
+    // Render data
+    const render = (transactions) => {
+        tbody.innerHTML = "";
+
+        if (transactions.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5">Tidak ada transaksi ditemukan.</td></tr>`;
+            return;
+        }
+
+        transactions.forEach(trx => {
+            const date = trx.tanggal.split("T")[0]; // Format YYYY-MM-DD
+
+            tbody.insertAdjacentHTML("beforeend", `
+                <tr>
+                    <td>${escapeHtml(trx.id)}</td>
+                    <td>${escapeHtml(date)}</td>
+                    <td>${escapeHtml(trx.kasir)}</td>
+                    <td>${formatCurrency(trx.total)}</td>
+                    <td><button class="btn-detail" data-id="${trx.id}">Detail</button></td>
+                </tr>
+            `);
+        });
+
+        qsa(".btn-detail").forEach(btn => {
+            btn.onclick = () => openDetailModal(btn.dataset.id);
+        });
+    };
+
+    // Load semua transaksi
+    const loadAll = () => {
+        const all = JSON.parse(localStorage.getItem(LS_TRANSACTIONS_KEY)) || [];
+        render(all);
+    };
+
+    // Event submit pencarian laporan
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const selectedDate = dateInput.value;
+        const transactions = JSON.parse(localStorage.getItem(LS_TRANSACTIONS_KEY)) || [];
+
+        if (!selectedDate) {
+            loadAll();
+            return;
+        }
+
+        const filtered = transactions.filter(t => {
+            return t.tanggal.split("T")[0] === selectedDate;
+        });
+
+        render(filtered);
     });
-    qsa(".btn-detail").forEach(btn=>btn.onclick=()=>openDetailModal(btn.dataset.id));
-  };
 
-  const loadAll = () => render(JSON.parse(localStorage.getItem(LS_TRANSACTIONS_KEY)) || []);
+    // Detail modal transaksi
+    function openDetailModal(id) {
+        const all = JSON.parse(localStorage.getItem(LS_TRANSACTIONS_KEY)) || [];
+        const trx = all.find(t => t.id === id);
+        if (!trx) return alert("Transaksi tidak ditemukan!");
 
-  if (form) form.addEventListener("submit", e=>{
-    e.preventDefault();
-    const dateVal = qs("#tanggal").value;
-    const transactions = JSON.parse(localStorage.getItem(LS_TRANSACTIONS_KEY)) || [];
-    render(dateVal ? transactions.filter(t=>t.tanggal.split("T")[0]===dateVal) : transactions);
-  });
+        const itemsHtml = trx.items.map(it => `
+            <tr>
+                <td>${escapeHtml(it.nama)}</td>
+                <td>${it.qty}</td>
+                <td>${formatCurrency(it.harga)}</td>
+                <td>${formatCurrency(it.total)}</td>
+            </tr>
+        `).join("");
 
-  function openDetailModal(id) {
-    const trx = (JSON.parse(localStorage.getItem(LS_TRANSACTIONS_KEY)) || []).find(t=>t.id===id);
-    if (!trx) return showError("Transaksi tidak ditemukan.");
-    const itemsHtml = trx.items.map(it=>`<tr><td>${escapeHtml(it.nama)}</td><td>${it.qty}</td><td>${formatCurrency(it.harga)}</td><td>${formatCurrency(it.total)}</td></tr>`).join("");
-    const html = `
-      <div id="modalReport" class="modal-bg">
-        <div class="modal card">
-          <h3>Detail Transaksi ${trx.id}</h3>
-          <p>Kasir: ${escapeHtml(trx.kasir)}</p>
-          <p>Tanggal: ${new Date(trx.tanggal).toLocaleString()}</p>
-          <table style="width:100%;margin-top:8px;border-collapse:collapse">
-            <thead><tr><th>Produk</th><th>Qty</th><th>Harga</th><th>Subtotal</th></tr></thead>
-            <tbody>${itemsHtml}</tbody>
-            <tfoot><tr><td colspan="3" style="text-align:right"><strong>Total</strong></td><td>${formatCurrency(trx.total)}</td></tr></tfoot>
-          </table>
-          <div style="margin-top:10px;text-align:right"><button id="closeReportModal">Tutup</button></div>
-        </div>
-      </div>
-    `;
-    document.body.insertAdjacentHTML("beforeend", html);
-    qs("#closeReportModal").onclick = ()=>qs("#modalReport")?.remove();
-  }
+        const html = `
+            <div id="modalReport" class="modal-bg">
+                <div class="modal card">
+                    <h3>Detail Transaksi ${trx.id}</h3>
+                    <p>Kasir: ${escapeHtml(trx.kasir)}</p>
+                    <p>Tanggal: ${new Date(trx.tanggal).toLocaleString()}</p>
 
-  loadAll();
+                    <table style="width:100%; margin-top:10px;" border="1">
+                        <thead>
+                            <tr>
+                                <th>Produk</th>
+                                <th>Qty</th>
+                                <th>Harga</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>${itemsHtml}</tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" style="text-align:right"><strong>Total</strong></td>
+                                <td>${formatCurrency(trx.total)}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div style="margin-top:15px; text-align:right;">
+                        <button id="closeReportModal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML("beforeend", html);
+        qs("#closeReportModal").onclick = () => qs("#modalReport")?.remove();
+    }
+
+    // Load awal
+    loadAll();
 }
 
 // ---------------------------
