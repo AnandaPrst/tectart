@@ -71,7 +71,6 @@ Tabel berisi:
 4. Item masuk ke tabel keranjang & total diperbarui otomatis
 
 Keranjang disimpan sementara di:
-```bash
 sessionStorage -> "cart"
 
 ## B. Menghapus Item
@@ -87,7 +86,6 @@ sessionStorage -> "cart"
 2. Sistem akan:
    - Validasi pembayaran
    - Simpan transaksi ke:
-   ```bash
    localStorage -> "transactions"
 - Menghapus cart
 - Menampilkan pop-up sukses
@@ -130,14 +128,11 @@ sessionStorage -> "cart"
 Sistem menggunakan browser storage:
 
 ## localStorage
-```bash
 loggedInUser   → data user yang login
 produkList     → daftar produk
 transactions   → daftar transaksi
 
-
 ## sessionStorage
-```bash
 cart → keranjang sementara (untuk halaman POS)
 
 ---
