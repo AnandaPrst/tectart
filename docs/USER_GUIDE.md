@@ -11,14 +11,13 @@ Panduan ini menjelaskan cara menggunakan seluruh fitur pada aplikasi seperti: lo
 - admin / admin
 - kasir / kasir
 3. Klik **Login**
-4. Jika data benar, sistem mengarahkan ke halaman **Dashboard**.
+4. Jika data benar, sistem mengarahkan ke halaman **Dashboard**
 
 ## Hak Akses User
-|    Role    |            Akses Menu                             |
-|------------|---------------------------------------------------|
-| Admin      | Dashboard, Produk, Tambah Produk, POS, Laporan    |
-| Kasir      | Dashboard, POS, Logout                            |
-|            | (menu Produk & Laporan disembunyikan)             |
+|    Role    |                            Akses Menu                                    |
+|------------|--------------------------------------------------------------------------|
+| Admin      | Dashboard, Produk, Tambah Produk, POS, Laporan                           |
+| Kasir      | Dashboard, POS, Logout (menu Produk & Laporan disembunyikan)             |
 
 ---
 
@@ -72,6 +71,7 @@ Tabel berisi:
 4. Item masuk ke tabel keranjang & total diperbarui otomatis
 
 Keranjang disimpan sementara di:
+```bash
 sessionStorage -> "cart"
 
 ## B. Menghapus Item
@@ -87,7 +87,8 @@ sessionStorage -> "cart"
 2. Sistem akan:
    - Validasi pembayaran
    - Simpan transaksi ke:
-localStorage -> "transactions"
+   ```bash
+   localStorage -> "transactions"
 - Menghapus cart
 - Menampilkan pop-up sukses
 
@@ -129,12 +130,14 @@ localStorage -> "transactions"
 Sistem menggunakan browser storage:
 
 ## localStorage
+```bash
 loggedInUser   → data user yang login
 produkList     → daftar produk
 transactions   → daftar transaksi
 
 
 ## sessionStorage
+```bash
 cart → keranjang sementara (untuk halaman POS)
 
 ---
@@ -152,6 +155,7 @@ showError("pesan");
 
 ### 9. Struktur Folder
 
+```bash
 frontend/
 ├── login.html
 ├── dashboard.html
