@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Produk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="produk.html" class="active">Produk</a></li>
+        <li><a href="pos.html">Transaksi</a></li>
+        <li><a href="laporan.html">Laporan</a></li>
+        <li><a href="#" id="logoutBtn">Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="user-info">
+      <span>Selamat datang, <span id="usernameDisplay">Pengguna</span></span>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="content">
+    <h1>Tambah Produk</h1>
+    <section class="add-product-section">
+        <form>
+            <label>Nama Produk</label>
+            <input type="text" id="nama" required>
+
+            <label>Kategori</label>
+            <input type="text" id="kategori" required>
+
+            <label>Harga Beli</label>
+            <input type="number" id="harga-beli">
+
+            <label>Harga Jual</label>
+            <input type="number" id="harga-jual">
+
+            <label>Stok</label>
+            <input type="number" id="stok">
+
+            <label>Satuan</label>
+            <input type="text" id="satuan">
+
+            <div class="form-buttons">
+                <button type="submit" class="save-button">Simpan</button>
+                <button type="button" class="cancel-button">Batal</button>
+            </div>
+        </form>
+    </section>
+  </main>
+
+  <script src="/BACKEND/script.js"></script>
+</body>
+</html>

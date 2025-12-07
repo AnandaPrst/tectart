@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Sistem Penjualan Toko</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="produk.html">Produk</a></li>
+                <li><a href="pos.html">Transaksi</a></li>
+                <li><a href="laporan.html">Laporan</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div class="user-info">
+            <span>Selamat datang, <span id="usernameDisplay">Pengguna</span></span>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+        <section class="stats-cards">
+            <div class="card">
+                <h3>Total Produk</h3>
+                <p id="totalProducts">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Transaksi Hari Ini</h3>
+                <p id="totalTransactions">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Pendapatan Hari Ini</h3>
+                <p id="todayIncome">Rp 0</p>
+            </div>
+
+            <div class="card">
+                <h3>Produk Hampir Habis</h3>
+                <p id="lowStock">0</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="/BACKEND/script.js"></script>
+</body>
+</html>

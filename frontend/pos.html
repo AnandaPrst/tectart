@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS - Sistem Penjualan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="produk.html">Produk</a></li>
+                <li><a href="pos.html" class="active">Transaksi</a></li>
+                <li><a href="laporan.html">Laporan</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <header class="topbar">
+        <div class="user-info">
+            <span id="userWelcome">Selamat datang, -</span>
+        </div>
+    </header>
+
+    <main class="content">
+
+        <!-- INPUT PRODUK -->
+        <section class="product-input">
+            <h3>Input Produk</h3>
+            <form id="addToCartForm">
+                <div class="input-group">
+                    <label for="kode-produk">Kode Produk</label>
+                    <input type="text" id="kode-produk" required>
+                </div>
+                <div class="input-group">
+                    <label for="qty">Qty</label>
+                    <input type="number" id="qty" required>
+                </div>
+                <button type="submit" class="add-button">Tambah</button>
+            </form>
+        </section>
+
+        <!-- TABEL KERANJANG -->
+        <section class="cart-table">
+            <h3>Keranjang</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama Produk</th>
+                        <th>Qty</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="cartBody">
+                    <!-- JS akan menambahkan row di sini -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- PEMBAYARAN -->
+        <section class="payment-form">
+            <h3>Pembayaran</h3>
+            <form id="paymentForm">
+                <div class="input-group">
+                    <label for="total">Total</label>
+                    <input type="text" id="total" value="0" readonly>
+                </div>
+                <div class="input-group">
+                    <label for="bayar">Bayar</label>
+                    <input type="number" id="bayar" required>
+                </div>
+                <div class="input-group">
+                    <label for="kembalian">Kembalian</label>
+                    <input type="text" id="kembalian" readonly>
+                </div>
+                <button type="submit" id="finishTransaction" class="finish-button">Selesai</button>
+            </form>
+        </section>
+
+    </main>
+
+    <script src="/BACKEND/script.js"></script>
+</body>
+</html>
