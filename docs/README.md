@@ -32,7 +32,7 @@ Project ini dikembangkan menggunakan teknologi berikut:
 
 ```bash
 git clone https://github.com/AnandaPrst/tectart
-
+```
 2. Buka folder project menggunakan Visual Studio Code
 
 3. Masuk ke folder FRONTEND
