@@ -35,7 +35,7 @@ git clone https://github.com/AnandaPrst/tectart
 ```
 2. Buka folder project menggunakan Visual Studio Code
 
-3. Masuk ke folder FRONTEND
+3. Masuk ke folder frontend
 
 4. Jalankan salah satu file HTML dengan klik dua kali, seperti:
 - dashboard.html 
